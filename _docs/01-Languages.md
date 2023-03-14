@@ -10,3 +10,8 @@ The Language lookup table.
 | code        | string   | 8    |                         |         |
 | name        | string   | 128  |                         |         |
 | description | string   | 255  | nullable                |         |
+
+## Seed Data
+
+Obtained seed data from:
+- http://www.lingoes.net/en/translator/langcode.htm
