@@ -12,6 +12,13 @@ class PublisherSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $seedPublishers = [
+
+        ];
+
+        foreach ($seedPublishers as $publisher) {
+            Publisher::create($publisher);
+        }
+
     }
 }
