@@ -33,9 +33,33 @@ Formats are limited, Adrian will complete.
 
 In this session, creating basic API controllers, Routes and Tests.
 
+#### Complete Migrations/Seeders/Models/Factories
+
 - Complete the migration, seeder, model and factory for the tables below:
   - Languages
-  - ...
-- Create the API Controller and PEST testing for the models below:
-  - ...
+  - Format
+  - Genre
+  - Countries
+  - Authors
+  - Publishers
+
+The table structures are in the relevant links at the top of the page.
+
+#### Create API Controllers and PEST Tests
+
+- Create the API Controller and PEST testing for the tables below:
+  - Languages (Done in class)
+  - Countries
+  - Formats
+  - Genres
+  
+Do not write any PEST tests at this stage.
+
+#### Create API Endpoints and test using Postman 
+- Create the API Code and Postman tests for the tables below:
+  - Languages (Done in class)
+  - Countries
+  - Formats
+  - Genres
+
 
