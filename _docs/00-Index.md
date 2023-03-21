@@ -14,6 +14,8 @@ Add description here...
 
 # ToDo
 
+Ensure the previous TODO sections are completed BEFORE going onto the next.
+
 ### 2023-03-14
 - Complete the Migrations for the tables above.
 - Add ONE row to the sheets shown in the Teams -> Advanced Programming -> Files --> SaaS --> Library Excel file
@@ -26,3 +28,14 @@ Add description here...
 Do not add to the Languages and Countries sheets as they are complete as of 2003-03-14.
 
 Formats are limited, Adrian will complete.
+
+### 2023-03-21
+
+In this session, creating basic API controllers, Routes and Tests.
+
+- Complete the migration, seeder, model and factory for the tables below:
+  - Languages
+  - ...
+- Create the API Controller and PEST testing for the models below:
+  - ...
+
