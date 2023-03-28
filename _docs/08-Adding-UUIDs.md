@@ -157,7 +157,7 @@ sail artisan migrate:fresh --seed --step
 
 ## Exercise: Adding UUIDs
 
-1. Create the required changes to add UUIDs to each of the 
-tables, excluding Books.
-2. Check that the changes work by cheking that UUIDs are given 
+1. Create the required changes to add UUIDs to each of the models.
+2. Check that the changes work by checking that UUIDs are given 
 when you add/edit/etc via the API.
+

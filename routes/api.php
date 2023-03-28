@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\API\GenreApiController;
 use App\Http\Controllers\API\LanguageApiController;
 
 /*
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 /* Resourceful Route for Languages */
 Route::resource('languages', LanguageApiController::class);
+Route::resource('genres', GenreApiController::class);

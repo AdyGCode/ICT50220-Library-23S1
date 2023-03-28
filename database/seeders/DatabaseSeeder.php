@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            CountrySeeder::class,
             LanguageSeeder::class,
             FormatSeeder::class,
             GenreSeeder::class,
+            // CountrySeeder::class,
             // PublisherSeeder::class,
 
             // ItemStatusSeeder::class,

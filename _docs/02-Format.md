@@ -16,5 +16,6 @@ Includes the format of the book/item.
 ## Exercise
 
 1. Create the model, migration, seeder, factory and other items for the Format
-2. Create the API for the Format
+2. Create the API for the Format model 
+   - Remember to use the `sail artisan make:controller API/FormatApiController` command.
 3. Create and test the Format API
