@@ -42,7 +42,7 @@ class GenreApiController extends ApiBaseController
         ];
 
         $results = Genre::create($validated);
-dd($results);
+
         if (!is_null($results) && $results->count() > 0) {
             return $this->sendResponse(
                 $results,
