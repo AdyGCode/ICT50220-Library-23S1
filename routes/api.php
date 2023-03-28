@@ -24,4 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 /* Resourceful Route for Languages, and other Models */
 Route::resource('languages', LanguageApiController::class);
+//Route::resource('formats', FormatApiController::class);
 Route::resource('genres', GenreApiController::class);
+//Route::resource('countries', CountryApiController::class);
+//Route::resource('authors', AuthorApiController::class);
+//Route::resource('publishers', PublisherApiController::class);
+//Route::resource('item-statuses', ItemStatusApiController::class);

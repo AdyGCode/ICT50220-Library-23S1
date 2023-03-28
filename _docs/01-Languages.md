@@ -120,11 +120,13 @@ Add the resourceful route at the bottom:
 Route::resource('languages', LanguageApiController::class);
 ```
 
-## Create the Controller & Pest Tests
+## Create the API Controller & Pest Tests
 
 ```bash
 sail artisan make:controller API/LanguageApiController --api --pest
 ```
+
+## Adding the API Routes
 
 Edit the `routes\api.php`.
 
@@ -134,7 +136,22 @@ At the top under the `use` lines:
 use App\Http\Controllers\API\LanguageApiController;
 ```
 
+Also, we need to include the Language model, so add the use line:
+
+```php
+use App\Models\Language;
+```
+
 ## Controller Actions
+We are now able to edit and add the various controller actions that
+are triggered by the routing.
+
+They include:
+- browse (method: index)
+- read (method: show)
+- edit (method: update)
+- add (method: create), and
+- delete (method: destroy).
 
 ### Browse all Languages
 
@@ -145,8 +162,7 @@ use App\Http\Controllers\API\LanguageApiController;
         return $languages;
     }
 ```
-
-URL: http://localhost/api/languages
+To access this we will use the URL: http://localhost/api/languages
 
 ### Retrieve ONE Language
 
@@ -158,7 +174,9 @@ URL: http://localhost/api/languages
     }
 ```
 
-URL: http://localhost/api/languages/3
+To access this we will use the URL: http://localhost/api/languages/3
+
+The `3` at the end will be replaced by the langauge's row ID we want to view.
 
 ## POSTMAN!
 
@@ -227,12 +245,16 @@ Based on an example in "Test-Driven APIs with Laravel and PEST" by Martin Joo.
 
 ### Create the API Base Controller
 
+In the console, run the command:
+
 ```bash
 sail artisan make:controller API/ApiBaseController
 ```
+This creates a new empty controller called `ApiBaseController` 
+in an automatically created folder called `API` in the 
+`app\Http\Controllers` folder.
 
-Open this file and update to include the following
-
+Open this file and update to include the following:
 ```php
 /**
  * success response method.
@@ -246,7 +268,6 @@ public function sendResponse($result, $message)
         'data'    => $result,
         'message' => $message,
     ];
-
 
     return response()->json($response, 200);
 }
@@ -264,12 +285,174 @@ public function sendError($error, $errorMessages = [], $code = 404)
         'message' => $error,
     ];
 
-
     if(!empty($errorMessages)){
         $response['data'] = $errorMessages;
     }
 
-
     return response()->json($response, $code);
 }
+```
+
+## Updating the Language API Controller
+
+The new BaseApiController is very useful as it allows us to
+define a particular structure for returning data from a request.
+
+Most REST APIs are based upon a standard when returning data.
+This is to make it easier for a developer to re-use their code 
+and to make debugging simpler if results are coming in an expected 
+format.
+
+Open the LanguageApiController and edit the code.
+
+In the block of `use ...` statements at the top of the file, 
+add the following:
+
+```php
+use App\Http\Controllers\API\ApiBaseController;
+```
+
+Next modify the class name line to use the `ApiBaseController`:
+
+```php
+class LanguageApiController extends ApiBaseController
+```
+
+## Updating our Methods
+
+We are now able to update the base methods to use this new controller.
+
+All our methods will return a `JsonResponse`. So we are able to 
+type hint the methods.
+
+### Index Method
+
+The index method, like all the methods we are now going to update,
+requires more code so that we are able to respond in a meaningful
+way to the API request.
+
+Start by making sure the head of the method is correct:
+
+```php
+public function index(): JsonResponse
+    {
+        $languages = Language::all();
+```
+
+Now we are able to add a test to see if we got any results, 
+
+```php
+        if (!is_null($languages) && $languages->count() > 0) {
+```
+If we have results then we are able to use our new `sendResponse` 
+method that is in our `BaseApiController`.
+
+```php        
+            return $this->sendResponse(
+                $languages,
+                "Retrieved successfully.",
+            );
+        }
+```
+We shortcut the method, by returning directly from the decision
+if we did get results.
+
+In the situation we do not, we simply force an error response as
+the returned data.
+```php        
+
+        return $this->sendError("No Languages Found");
+    }
+```
+### Show Method
+
+```php
+    public function show(string $id): JsonResponse
+    {
+        $language = Language::find($id);
+
+        if (isset($language) && $language->count() > 0) {
+            return $this->sendResponse(
+                $language,
+                "Retrieved language successfully.",
+            );
+        }
+
+        return $this->sendError("Language Not Found");
+    }
+```
+### Store Method
+
+```php
+    public function store(Request $request): JsonResponse
+    {
+        $validated = [
+            'name' => $request['name'],
+            'code' => $request['code'],
+            'description' => $request['description'],
+        ];
+
+        $results = Language::create($validated);
+
+        if (!is_null($results) && $results->count() > 0) {
+            return $this->sendResponse(
+                $results,
+                "Created language successfully.",
+            );
+        }
+
+        return $this->sendError("Unable to create language");
+    }
+```
+
+### Update Method
+
+```php
+    public function update(Request $request, string $id): JsonResponse
+    {
+        $language = Language::find($id);
+
+        if (!is_null($language)) {
+            $validated = [
+                'name' => $request['name'] ?? $language['name'],
+                'code' => isset($request['code']) ? $request['code'] : $language['code'],
+                'description' => $request['description'] ?? $language['description'],
+            ];
+
+            $results = $language->update($validated);
+
+            if (isset($results) && $results->count() > 0) {
+                return $this->sendResponse(
+                    $results,
+                    "Updated successfully.",
+                );
+            }
+            return $this->sendError("Unable to update language");
+        }
+
+        return $this->sendError("Unable to update unknown language");
+
+    }
+```
+
+### Destroy Method
+
+```php
+    public function destroy(string $id): JsonResponse
+    {
+        $language = Language::find($id);
+        $results = $language;
+
+        if (!is_null($language) && $language->count() > 0) {
+
+            $deleted = $language->delete();
+
+            if ($deleted) {
+                return $this->sendResponse($results, "Deleted successfully.");
+            }
+            return $this->sendError("Unable to delete language");
+        }
+
+        return $this->sendError("Unable to delete unknown language");
+    }
 ```
