@@ -57,10 +57,10 @@ class GenreApiController extends ApiBaseController
     /**
      * Display the specified resource.
      */
-    public function show(string $id): JsonResponse
+    public function show(string $uuid): JsonResponse
     {
 
-        $genre = Genre::where('uuid','=',$id)->first();
+        $genre = Genre::whereUuid($uuid)->first();
 
         if (isset($genre) && $genre->count() > 0) {
             return $this->sendResponse(

@@ -6,8 +6,8 @@ In practice, we will only use the UUIDs on certain models:
 
 - Publisher
 - Author
-- Books
 - Genre
+- Books
 
 We basically use the UUID in place of the ID field when the user interacts with the application.
 
@@ -35,6 +35,11 @@ public function getRouteKeyName():string{
 
 1. Add the getRouteKeyName to the Publisher, Genre, and Author models.
 2. Use the API to list all the data for each model.
-3. Copy ONE UUID from the list, and replace the number in the get with the UUID.
+3. Copy ONE UUID from the list, and replace the number in the `get` with the UUID.
 4. Verify that the correct row is returned.
+
+## Exercise - Using UUIDs
+
+1. Now work on using UUIDs for the Update and Delete 
+   methods in Genre, Publisher and Author.
 
