@@ -21,7 +21,14 @@ sail artisan make:model Book -a -r
 | published    | year       | -    | nullable                |           |
 | format       | string     | 16   |                         | paperback |
 | publisher_id | foreign id | -    |                         | 1         |
+| uuid         | string     | 128  |                         |           |
 | created_at   | timestamp  | -    |                         |           |
 | updated_at   | timestamp  | -    |                         |           |
 
+## App\Models\Book.php
 
+Add the HasUuid Trait to the model to make sure it adds the UUID automatically
+when a new book is added.
+
+Make sure that the fields except created_at, updated_at, and id are listed 
+as fillable in the model.

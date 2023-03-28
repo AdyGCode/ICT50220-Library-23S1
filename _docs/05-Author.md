@@ -13,7 +13,12 @@ The Authors table.
 | Date of Birth  | date    |      |                         |         |
 | Date of Death  | date    |      | nullable                |         | 
 
+## Exercise
 
+1. Create the model, migration, seeder, factory and other items for the Author
+2. Add the seed data to the Author Seeder
+3. Create the API for the Author
+4. Create and test the Author API
 
 
 

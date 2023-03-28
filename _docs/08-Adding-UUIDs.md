@@ -34,13 +34,11 @@ sail artisan make:migration add_uuid_to_countries
 sail artisan make:migration add_uuid_to_authors
 sail artisan make:migration add_uuid_to_publishers
 sail artisan make:migration add_uuid_to_itemstatuses
-sail artisan make:migration add_uuid_to_books
 ```
 
 ### Modifying the add_* Migrations
 
-The example below shows how to modify the add `uuid` to 
-Languages migration.
+The example below shows how to modify the "add_uuid_to_genres" migration.
 
 Edit the `add_uuid_to_genres` migration and to the `up` method add:
 
@@ -146,10 +144,20 @@ class Format extends Model
 }
 ```
 
-Now we can re-run our migrations and seeds from fresh and it will automatically add a UUID to the models that need them:
+Now we can re-run our migrations and seeds from fresh and it 
+will automatically add a UUID to the models that need them:
 
 ```bash
 sail artisan migrate:fresh --seed --step
 ```
 
-> **Remember**: DO NOT use the `migrate:fresh` command on a *production database/application*.
+> **Remember**: DO NOT use the `migrate:fresh` command on a 
+> *production database/application*.
+
+
+## Exercise: Adding UUIDs
+
+1. Create the required changes to add UUIDs to each of the 
+tables, excluding Books.
+2. Check that the changes work by cheking that UUIDs are given 
+when you add/edit/etc via the API.

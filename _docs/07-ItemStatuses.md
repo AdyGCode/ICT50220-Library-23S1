@@ -18,3 +18,9 @@ sail artisan make:model ItemStatus -a -r
 | updated_at   | timestamp  | -    |                         |           |
 
 
+## Exercise
+
+1. Create the model, migration, seeder, factory and other items for the ItemStatus
+2. Add the seed data to the ItemStatus Seeder
+3. Create the API for the ItemStatus
+4. Create and test the ItemStatus API
