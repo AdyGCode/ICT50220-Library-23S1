@@ -4,14 +4,15 @@ The Authors table.
 
 ## Table Design
 
-| Field Name     | Type    | Size | Options                 | Default |
-|----------------|---------|------|-------------------------|---------|
-| id             | big int | -    | unsigned, autoincrement |         |
-| First name     | string  | 128  |                         |         |
-| Last name      | string  | 128  | nullable                |         |
-| Country        | string  | 128  | nullable                |         |
-| Date of Birth  | date    |      |                         |         |
-| Date of Death  | date    |      | nullable                |         | 
+| Field Name    | Type    | Size | Options                 | Default |
+|---------------|---------|------|-------------------------|---------|
+| id            | big int | -    | unsigned, autoincrement |         |
+| Given names   | string  | 128  |                         |         |
+| Other names   | string  | 128  | nullable                |         |
+| Family names  | string  | 128  | nullable                |         |
+| Country       | string  | 128  | nullable                |         |
+| Date of Birth | date    |      | nullable                |         |
+| Date of Death | date    |      | nullable                |         | 
 
 ## Exercise
 
