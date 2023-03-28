@@ -36,7 +36,8 @@ public function getRouteKeyName():string{
 1. Add the getRouteKeyName to the Publisher, Genre, and Author models.
 2. Use the API to list all the data for each model.
 3. Copy ONE UUID from the list, and replace the number in the `get` with the UUID.
-4. Verify that the correct row is returned.
+4. Modify the show method to use the UUID.
+5. Using Postman, verify that the correct row is returned.
 
 ## Exercise - Using UUIDs
 

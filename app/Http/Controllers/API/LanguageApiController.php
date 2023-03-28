@@ -64,7 +64,7 @@ class LanguageApiController extends ApiBaseController
         if (isset($language) && $language->count() > 0) {
             return $this->sendResponse(
                 $language,
-                "Retrieved successfully.",
+                "Retrieved language successfully.",
             );
         }
 
@@ -90,7 +90,7 @@ class LanguageApiController extends ApiBaseController
             if (isset($results) && $results->count() > 0) {
                 return $this->sendResponse(
                     $results,
-                    "Retrieved successfully.",
+                    "Updated successfully.",
                 );
             }
             return $this->sendError("Unable to update language");

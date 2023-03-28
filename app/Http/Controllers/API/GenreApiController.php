@@ -38,12 +38,11 @@ class GenreApiController extends ApiBaseController
     {
         $validated = [
             'name' => $request['name'],
-            'code' => $request['code'],
             'description' => $request['description'],
         ];
 
         $results = Genre::create($validated);
-
+dd($results);
         if (!is_null($results) && $results->count() > 0) {
             return $this->sendResponse(
                 $results,
@@ -75,23 +74,24 @@ class GenreApiController extends ApiBaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update(Request $request, string $uuid): JsonResponse
     {
-        $genre = Genre::find($id);
+        //$genre = Genre::find($id);
+        $genre = Genre::whereUuid($uuid)->first();
 
-        if (!is_null($genre)) {
+        if (isset($genre) && !is_null($genre)) {
             $validated = [
                 'name' => $request['name'] ?? $genre['name'],
                 'code' => isset($request['code']) ? $request['code'] : $genre['code'],
                 'description' => $request['description'] ?? $genre['description'],
             ];
 
-            $results = $genre->update($validated);
+            $isUpdated = $genre->update($validated);
 
-            if (isset($results) && $results->count() > 0) {
+            if ($isUpdated && $genre->count() > 0) {
                 return $this->sendResponse(
-                    $results,
-                    "Retrieved successfully.",
+                    $genre,
+                    "Updated genre successfully.",
                 );
             }
             return $this->sendError("Unable to update genre");
@@ -104,9 +104,9 @@ class GenreApiController extends ApiBaseController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy(string $uuid): JsonResponse
     {
-        $genre = Genre::find($id);
+        $genre = Genre::whereUuid($uuid)->first();
         $results = $genre;
 
         if (!is_null($genre) && $genre->count() > 0) {
@@ -114,7 +114,7 @@ class GenreApiController extends ApiBaseController
             $deleted = $genre->delete();
 
             if ($deleted) {
-                return $this->sendResponse($results, "Deleted successfully.");
+                return $this->sendResponse($results, "Deleted genre successfully.");
             }
             return $this->sendError("Unable to delete genre");
         }
