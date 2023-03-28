@@ -12,7 +12,7 @@ sail artisan make:model ItemStatus -a -r
 |--------------|------------|------|-------------------------|-----------|
 | id           | big int    | -    | unsigned, autoincrement |           |
 | status       | string     | 64   |                         |           |
-| code         | string     | 3    |                         |           |
+| code         | string     | 6    |                         |           |
 | description  | string     | 255  | nullable                | false     |
 | created_at   | timestamp  | -    |                         |           |
 | updated_at   | timestamp  | -    |                         |           |

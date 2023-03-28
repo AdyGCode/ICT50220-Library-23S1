@@ -88,3 +88,68 @@ Click on this Traits folder and then to create the trait use:
 
 Enter HasUuid as the name, change the type to Trait
 
+Clicking OK/Create will then reveal a stub trait ready to add the required code.
+
+Edit this stub and add the following inside the trait:
+
+```php
+    public static function bootHasUuid(): void
+    {
+        static::creating(function (Model $model): void {
+            $model->uuid = Uuid::uuid4()->toString();
+        });
+
+        /* TODO: check on update if UUID is empty,
+                 and if it is, add a new uuid */
+    }
+```
+
+Next we edit the model and add two lines of code to tell the model to use this trait:
+
+After the line:
+
+```php
+use Illuminate\Database\Eloquent\Model;
+```
+add `App\Traits\HasUuid;`
+
+Which gives:
+```php
+use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasUuid;
+```
+
+Inside the model we now add:
+
+```php
+use HasUuid;
+```
+
+So for the Format model we have:
+
+```php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasUuid;
+
+class Format extends Model
+{
+    use HasFactory;
+    use HasUuid;
+
+    protected $fillable=[
+      'name',
+      'description',
+    ];
+}
+```
+
+Now we can re-run our migrations and seeds from fresh and it will automatically add a UUID to the models that need them:
+
+```bash
+sail artisan migrate:fresh --seed --step
+```
+
+> **Remember**: DO NOT use the `migrate:fresh` command on a *production database/application*.
