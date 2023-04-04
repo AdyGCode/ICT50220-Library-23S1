@@ -75,10 +75,10 @@ class GenreApiController extends ApiBaseController
      */
     public function update(UpdateGenreAPIRequest $request, string $uuid): JsonResponse
     {
-        //$genre = Genre::find($id);
         $genre = Genre::whereUuid($uuid)->first();
 
         if (isset($genre) && !is_null($genre)) {
+
             $validated = $request->validated();
 
             $isUpdated = $genre->update($validated);

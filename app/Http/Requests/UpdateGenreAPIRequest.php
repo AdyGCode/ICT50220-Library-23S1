@@ -25,11 +25,11 @@ class UpdateGenreAPIRequest extends FormRequest
      */
     public function rules(): array
     {
-        $genreID = Genre::where('uuid',$this->genre)->get();
-        return [
+
+        $rules= [
             'name' => [
                 'sometimes',
-                Rule::unique('genres')->ignore($genreID),
+                'unique:genres',
                 'min:3',
                 'max:32',
             ],
@@ -37,6 +37,8 @@ class UpdateGenreAPIRequest extends FormRequest
                 'nullable',
             ]
         ];
+
+        return $rules;
     }
 
 
