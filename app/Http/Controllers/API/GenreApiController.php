@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\ApiBaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGenreAPIRequest;
+use App\Http\Requests\UpdateGenreAPIRequest;
 use App\Models\Genre;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -34,12 +36,9 @@ class GenreApiController extends ApiBaseController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreGenreAPIRequest $request): JsonResponse
     {
-        $validated = [
-            'name' => $request['name'],
-            'description' => $request['description'],
-        ];
+        $validated = $request->validated();
 
         $results = Genre::create($validated);
 
@@ -74,17 +73,13 @@ class GenreApiController extends ApiBaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $uuid): JsonResponse
+    public function update(UpdateGenreAPIRequest $request, string $uuid): JsonResponse
     {
         //$genre = Genre::find($id);
         $genre = Genre::whereUuid($uuid)->first();
 
         if (isset($genre) && !is_null($genre)) {
-            $validated = [
-                'name' => $request['name'] ?? $genre['name'],
-                'code' => isset($request['code']) ? $request['code'] : $genre['code'],
-                'description' => $request['description'] ?? $genre['description'],
-            ];
+            $validated = $request->validated();
 
             $isUpdated = $genre->update($validated);
 
@@ -98,7 +93,6 @@ class GenreApiController extends ApiBaseController
         }
 
         return $this->sendError("Unable to update unknown genre");
-
     }
 
     /**
