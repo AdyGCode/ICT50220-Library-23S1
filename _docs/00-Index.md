@@ -11,7 +11,10 @@ Add description here...
 - [05-Author.md](05-Author.md)
 - [06-Publisher.md](06-Publisher.md)
 - [07-Books.md](99-Books.md)
-
+- [08-Adding-UUIDs.md](08-Adding-UUIDs.md)
+- [09-Using-the-UUIDs.md](09-Using-the-UUIDs.md)
+...
+- [90-ERD.md](90-ERD.md)
 # ToDo
 
 Ensure the previous TODO sections are completed BEFORE going onto the next.
